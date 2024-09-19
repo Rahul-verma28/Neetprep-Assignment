@@ -1,13 +1,27 @@
 import { Star } from "lucide-react";
 
-const ProductCard = ({ product, onClick }: any) => {
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  rating: number;
+  images?: string[];
+  isNew?: boolean;
+}
+
+interface ProductCardProps {
+  product: Product;
+  onClick: (product: Product) => void;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
   return (
     <div
       onClick={() => onClick(product)}
       className="bg-white dark:bg-gray-900 overflow-hidden shadow-lg cursor-pointer dark:shadow-gray-800 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-500 rounded-2xl hover:shadow-xl"
     >
       <div className="relative">
-        {product.images?.length > 0 ? (
+        {product.images && product.images.length > 0 ? (
           <img
             src={product.images[0]}
             alt={product.name}

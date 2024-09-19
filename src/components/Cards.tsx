@@ -6,11 +6,24 @@ import products from "@/data/products";
 import DetailedProduct from "./DetailedProduct";
 import { motion } from "framer-motion";
 
+// Define the Product type
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  rating: number;
+  images: string[];
+  isNew?: boolean;
+  description: string;
+}
+
 export default function Cards() {
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  // Set the state to hold selectedProduct of type Product or null
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Simulate loading
     setTimeout(() => {
       setLoading(false);
     }, 1500);
@@ -21,7 +34,7 @@ export default function Cards() {
       initial={{ opacity: 0.0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{
-        delay: 0.3,
+        delay: 0.1,
         duration: 0.8,
         ease: "easeInOut",
       }}
@@ -33,12 +46,14 @@ export default function Cards() {
 
       {loading ? (
         <div className="flex justify-center items-center">
-          <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-gray-500" role="status"></div>
-          <span className="ml-2 text-lg font-medium text-gray-500">Loading...</span>
+          <div className="animate-spin inline-block w-8 h-8 border-4 border-gray-300 border-t-transparent rounded-full"></div>
+          <span className="ml-2 text-lg font-medium text-gray-500">
+            Loading...
+          </span>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {products.map((product, index) => (
+          {products.map((product) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0.0, y: 20 }}
@@ -50,8 +65,7 @@ export default function Cards() {
             >
               <ProductCard
                 product={product}
-                index={index}
-                onClick={setSelectedProduct}
+                onClick={() => setSelectedProduct(product)}
               />
             </motion.div>
           ))}

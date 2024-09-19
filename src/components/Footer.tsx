@@ -21,7 +21,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social Media */}
           <div className="space-y-4">
             <h3 className="text-lg font-bold dark:text-white ">Follow Us</h3>
             <div className="flex space-x-4">

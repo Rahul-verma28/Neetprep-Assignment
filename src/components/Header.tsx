@@ -3,13 +3,10 @@
 import { ShoppingCart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./dark-light";
-// import { SideBar } from "./SideBar";
 import neetPrepLogo from "@/public/neetpreplogo.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { SideBar } from "./SideBar";
-import { Input } from "./ui/input";
 
 export default function Header() {
   const [cartItems, setCartItems] = useState([]);
@@ -21,7 +18,6 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white dark:bg-black shadow-xl backdrop-blur-3xl dark:shadow-gray-800">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16 max-w-screen-xl">
-        {/* Logo and Navigation */}
         <div className="flex items-center space-x-4">
           <a href="/" className="flex items-center hover:underline">
             <Image
@@ -35,10 +31,9 @@ export default function Header() {
             </span>
           </a>
 
-          {/* Main navigation - hidden on small screens */}
           <nav className="hidden lg:flex space-x-6">
             <Link 
-              href="/cart"
+              href="/"
               className="text-sm font-bold text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white transition-colors"
             >
               Products
@@ -59,9 +54,6 @@ export default function Header() {
         </div>
 
         <div className="flex items-center md:space-x-2">
-          <div className="hidden sm:block w-full max-w-xs mr-1">
-            <Input type="search" placeholder="Search..." className="w-full" />
-          </div>
           <Button variant="ghost" size="icon" className="p-2">
             <User className="h-5 w-5 dark:text-white" />
             <span className="sr-only">Account</span>

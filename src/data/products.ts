@@ -75,7 +75,7 @@ const products = [
     name: "AIIMS Test Series",
     rating: 4.6,
     price: 99.99,
-    isNew: false,
+    isNew: true,
     description:
       "A dedicated test series for AIIMS aspirants. Detailed questions with in-depth solutions, designed to improve accuracy and speed.",
     images: ["https://dwns1r2geopuk.cloudfront.net/assets/credit-section-video-thumbnail-4e7aa593504027e6c690a2d861ae6c0c393421da1b0511334095c49978a9a7da.svg", "https://dwns1r2geopuk.cloudfront.net/assets/target-24-5b0d0f0382fad34315e6e098af213bd74c749f7923093bb3aaa4d494168c15ba.svg", "https://dwns1r2geopuk.cloudfront.net/assets/credit-section-video-thumbnail-4e7aa593504027e6c690a2d861ae6c0c393421da1b0511334095c49978a9a7da.svg","https://dwns1r2geopuk.cloudfront.net/assets/credit-section-video-thumbnail-4e7aa593504027e6c690a2d861ae6c0c393421da1b0511334095c49978a9a7da.svg"],

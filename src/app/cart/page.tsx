@@ -5,8 +5,19 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast"; 
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState([]);
-
+  type CartItem = {
+    id: number;
+    name: string;
+    images: string[];
+    price: number;
+    quantity: number;
+    // add other relevant properties
+  };
+  
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+  
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cart") || "[]");
     setCartItems(storedCartItems);
@@ -19,7 +30,6 @@ const CartPage = () => {
     toast.error(`Product removed from the cart!`); 
   };
 
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   return (
     <div className="container mx-auto py-8 max-w-screen-xl px-12">
@@ -30,7 +40,7 @@ const CartPage = () => {
           </div>
           <h2 className="text-2xl font-bold mb-2">Your cart is empty</h2>
           <p className="text-muted-foreground mb-4 max-w-md">
-            Looks like you haven't added anything to your cart yet. Start
+            Looks like you have not added anything to your cart yet. Start
             shopping to fill it up!
           </p>
           <a href="/">

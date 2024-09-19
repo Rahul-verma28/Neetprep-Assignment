@@ -4,17 +4,30 @@ import { useState, useRef } from "react";
 import { ProductsCarousel } from "./Carousel";
 import toast from "react-hot-toast"; // Import toast
 
-const DetailedView = ({ product, onClose }: any) => {
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  rating: number;
+  description: string;
+  images: string[];
+}
+
+interface DetailedViewProps {
+  product: Product;
+  onClose: () => void;
+}
+
+const DetailedView: React.FC<DetailedViewProps> = ({ product, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isFlying, setIsFlying] = useState(false); // State to manage flying animation
-  const productImageRef = useRef(null); // Ref for the product image
+  const productImageRef = useRef<HTMLImageElement | null>(null); // Typed ref for the product image
 
   const handleAddToCart = () => {
     const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
 
     // Check if product already exists in the cart
     const isProductInCart = cartItems.some(
-      (item: any) => item.id === product.id
+      (item: Product) => item.id === product.id
     );
 
     if (isProductInCart) {
@@ -32,19 +45,19 @@ const DetailedView = ({ product, onClose }: any) => {
   const flyToCartAnimation = () => {
     const productImage = productImageRef.current;
     const cartIcon = document.getElementById("cart-icon"); // Assuming your cart icon has this ID
-  
+
     if (productImage && cartIcon) {
       const productRect = productImage.getBoundingClientRect();
-  
+
       // Calculate top-right corner of the viewport
       const viewportWidth = window.innerWidth;
       const topRightCornerX = viewportWidth - 100; // Adjust this value to account for padding/margin
       const topRightCornerY = -100; // Fixed distance from the top (adjust as needed)
-  
+
       const flyImage = document.createElement("img");
       flyImage.src = product.images[currentImageIndex];
       flyImage.classList.add("flying-product");
-  
+
       flyImage.style.position = "fixed";
       flyImage.style.left = `${productRect.left}px`;
       flyImage.style.top = `${productRect.top}px`;
@@ -52,13 +65,13 @@ const DetailedView = ({ product, onClose }: any) => {
       flyImage.style.height = `${productRect.height}px`;
       flyImage.style.zIndex = "1000";
       document.body.appendChild(flyImage);
-  
+
       const deltaX = topRightCornerX;
       const deltaY = topRightCornerY - productRect.top;
-  
+
       // Calculate the intermediate step to give the image a 75-degree upward arc
       const topOffset = -150; // Adjust this value to control how high the image goes (this simulates the arc)
-  
+
       flyImage.animate(
         [
           // Initial position
@@ -79,12 +92,10 @@ const DetailedView = ({ product, onClose }: any) => {
           easing: "ease-in-out",
         }
       ).onfinish = () => {
-        setIsFlying(false);
         flyImage.remove(); // Remove the image after animation
       };
     }
   };
-  
 
   return (
     <motion.div
